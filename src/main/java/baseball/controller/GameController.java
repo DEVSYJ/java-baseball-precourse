@@ -1,9 +1,12 @@
 package baseball.controller;
 
 import static baseball.constant.GameState.*;
+import static baseball.model.Umpire.*;
 
 import baseball.constant.GameState;
+import baseball.model.Pitcher;
 import baseball.model.StrikeZone;
+import baseball.model.Umpire;
 
 public class GameController {
 
@@ -18,11 +21,11 @@ public class GameController {
 	}
 
 	private static void playBall(StrikeZone strikeZone) {
-		// TODO : 사용자 입력 받기
-
-		// TODO : 결과 출력
-
-		// TODO : 맞으면 STOP 틀리면 재진행
+		Pitcher pitcher = new Pitcher();
+		Umpire.UmpireResult umpireResult = umpire(pitcher.pitch(), strikeZone);
+		while (!checkContinuePitch(umpireResult)) {
+			playBall(strikeZone);
+		}
 	}
 
 	public static GameState checkContinueGame() {
