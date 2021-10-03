@@ -2,9 +2,12 @@ package baseball.controller;
 
 import static baseball.constant.GameState.*;
 import static baseball.model.Umpire.*;
+import static baseball.view.ConsoleOutput.*;
+import static nextstep.utils.Console.*;
 
 import baseball.constant.GameState;
-import baseball.model.Pitcher;
+import baseball.exception.PitchException;
+import baseball.model.PitchBalls;
 import baseball.model.StrikeZone;
 import baseball.model.Umpire;
 
@@ -14,18 +17,31 @@ public class GameController {
 		GameState gameState = CONTINUE;
 
 		while (gameState.equals(CONTINUE)) {
-			StrikeZone strikeZone = new StrikeZone();
-			playBall(strikeZone);
+			playBall();
 			gameState = checkContinueGame();
 		}
 	}
 
-	private static void playBall(StrikeZone strikeZone) {
-		Pitcher pitcher = new Pitcher();
-		Umpire.UmpireResult umpireResult = umpire(pitcher.pitch(), strikeZone);
+	private static void playBall() {
+		StrikeZone strikeZone = new StrikeZone();
+		PitchBalls pitchBalls = setPitchBalls();
+
+		Umpire.UmpireResult umpireResult = umpire(pitchBalls, strikeZone);
 		while (!checkContinuePitch(umpireResult)) {
-			playBall(strikeZone);
+			playBall();
 		}
+	}
+
+	private static PitchBalls setPitchBalls() {
+		PitchBalls pitchBalls;
+		try {
+			printMessageForWaitingInput();
+			pitchBalls = new PitchBalls(readLine());
+		} catch (PitchException e) {
+			printErrorMessage(e.getMessage());
+			return setPitchBalls();
+		}
+		return pitchBalls;
 	}
 
 	public static GameState checkContinueGame() {
