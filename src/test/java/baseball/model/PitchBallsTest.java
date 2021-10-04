@@ -16,7 +16,7 @@ class PitchBallsTest {
 	private static final String[] matchRegList = {"123", "345", "173", "555"};
 	private static final String[] missMatchRegList = {"abc", "1234", "12", "101"};
 	private static final String[] pitchSuccessList = {"123", "345", "173"};
-	private static final String[] pitchFailList = {"abc", "1234", "12", "101", "555"};
+	private static final String[] pitchFailList = {"555", "112"};
 
 	@Test
 	void matchRegexTest() {
