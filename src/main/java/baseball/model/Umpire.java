@@ -11,14 +11,16 @@ import lombok.ToString;
 @ToString
 public class Umpire {
 	private UmpireState[] umpireResults = new UmpireState[3];
+	private int strikeCount;
+	private int ballCount;
 
 	public Umpire(PitchBalls pitchBalls, BallZone ballZone) {
-		// TODO : 사용자가 입력한 숫자에 대한 결과 출력
-
 		for (int umpireIndex = 0; umpireIndex < umpireResults.length; umpireIndex++) {
 			this.umpireResults[umpireIndex] = umpire(umpireIndex, pitchBalls.getPitchBalls(),
 				ballZone.getStrikeZones());
 		}
+
+		setUmpireTotal(this.umpireResults);
 	}
 
 	private UmpireState umpire(int umpireIndex, Integer[] pitchBalls, Integer[] ballZone) {
@@ -40,9 +42,24 @@ public class Umpire {
 		return NOTHING;
 	}
 
-	public static boolean checkContinuePitch(UmpireState[] umpireResults) {
-		// TODO : 다 맞으면 게임 종료
-		return true;
+	private void setUmpireTotal(UmpireState[] umpireResults) {
+		for (int i = 0; i < umpireResults.length; i++) {
+			countingResult(umpireResults[i]);
+		}
+	}
+
+	private void countingResult(UmpireState umpireResult) {
+		if (umpireResult.equals(STRIKE)) {
+			this.strikeCount++;
+			return;
+		}
+		if (umpireResult.equals(BALL)) {
+			this.ballCount++;
+		}
+	}
+
+	public static boolean checkContinuePitch(Umpire umpire) {
+		return umpire.getStrikeCount() == 3;
 	}
 
 }

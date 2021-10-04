@@ -1,9 +1,11 @@
 package baseball.model;
 
 import lombok.Getter;
+import lombok.ToString;
 import nextstep.utils.Randoms;
 
 @Getter
+@ToString
 public class BallZone {
 	private Integer[] strikeZones = new Integer[3];
 

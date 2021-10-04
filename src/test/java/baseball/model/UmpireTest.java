@@ -21,6 +21,11 @@ class UmpireTest {
 			.isEqualTo(UmpireState.STRIKE);
 		assertThat(umpire.getUmpireResults()[2])
 			.isEqualTo(UmpireState.STRIKE);
+
+		assertThat(umpire.getStrikeCount())
+			.isEqualTo(3);
+		assertThat(umpire.getBallCount())
+			.isEqualTo(0);
 	}
 
 	@Test
@@ -36,6 +41,11 @@ class UmpireTest {
 			.isEqualTo(UmpireState.BALL);
 		assertThat(umpire.getUmpireResults()[2])
 			.isEqualTo(UmpireState.BALL);
+
+		assertThat(umpire.getStrikeCount())
+			.isEqualTo(0);
+		assertThat(umpire.getBallCount())
+			.isEqualTo(3);
 	}
 
 	@Test
@@ -51,10 +61,15 @@ class UmpireTest {
 			.isEqualTo(UmpireState.NOTHING);
 		assertThat(umpire.getUmpireResults()[2])
 			.isEqualTo(UmpireState.NOTHING);
+
+		assertThat(umpire.getStrikeCount())
+			.isEqualTo(0);
+		assertThat(umpire.getBallCount())
+			.isEqualTo(0);
 	}
 
 	@Test
-	void umpire2Strike1BallTest() {
+	void umpire1Strike2BallTest() {
 		BallZone ballZone = new BallZone(1, 2, 3);
 		PitchBalls pitchBalls = new PitchBalls("132");
 		Umpire umpire = new Umpire(pitchBalls, ballZone);
@@ -66,6 +81,11 @@ class UmpireTest {
 			.isEqualTo(UmpireState.BALL);
 		assertThat(umpire.getUmpireResults()[2])
 			.isEqualTo(UmpireState.BALL);
+
+		assertThat(umpire.getStrikeCount())
+			.isEqualTo(1);
+		assertThat(umpire.getBallCount())
+			.isEqualTo(2);
 	}
 
 	@Test
@@ -81,5 +101,10 @@ class UmpireTest {
 			.isEqualTo(UmpireState.BALL);
 		assertThat(umpire.getUmpireResults()[2])
 			.isEqualTo(UmpireState.NOTHING);
+
+		assertThat(umpire.getStrikeCount())
+			.isEqualTo(1);
+		assertThat(umpire.getBallCount())
+			.isEqualTo(1);
 	}
 }

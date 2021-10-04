@@ -3,6 +3,8 @@ package baseball.controller;
 import static baseball.constant.GameState.*;
 import static baseball.model.Umpire.*;
 import static baseball.view.ConsoleOutput.*;
+import static baseball.view.InputConsole.*;
+import static baseball.view.UmpireConsole.*;
 import static nextstep.utils.Console.*;
 
 import baseball.constant.GameState;
@@ -24,12 +26,20 @@ public class GameController {
 
 	private static void playBall() {
 		BallZone ballZone = new BallZone();
-		PitchBalls pitchBalls = setPitchBalls();
+		startRound(ballZone);
+	}
 
-		Umpire umpireResults = new Umpire(pitchBalls, ballZone);
-		while (!checkContinuePitch(umpireResults.getUmpireResults())) {
-			playBall();
+	private static void startRound(BallZone ballZone) {
+		PitchBalls pitchBalls = setPitchBalls();
+		Umpire umpireResults = umpire(pitchBalls, ballZone);
+
+		if (checkContinuePitch(umpireResults)) {
+			printSuccessGame();
+			printMessageForRestart();
+			return;
 		}
+
+		startRound(ballZone);
 	}
 
 	private static PitchBalls setPitchBalls() {
@@ -38,10 +48,16 @@ public class GameController {
 			printMessageForWaitingInput();
 			pitchBalls = new PitchBalls(readLine());
 		} catch (PitchException e) {
-			printErrorMessage(e.getMessage());
+			printlnMessage(e.getMessage());
 			return setPitchBalls();
 		}
 		return pitchBalls;
+	}
+
+	private static Umpire umpire(PitchBalls pitchBalls, BallZone ballZone) {
+		Umpire result = new Umpire(pitchBalls, ballZone);
+		printUmpireResult(result);
+		return result;
 	}
 
 	public static GameState checkContinueGame() {
