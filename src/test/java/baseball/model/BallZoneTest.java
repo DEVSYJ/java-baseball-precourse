@@ -1,10 +1,8 @@
-package baseball.dto;
+package baseball.model;
 
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import baseball.model.BallZone;
 
 class BallZoneTest {
 
