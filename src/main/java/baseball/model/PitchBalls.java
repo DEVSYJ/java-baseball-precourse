@@ -13,9 +13,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PitchBalls {
-	private Integer pitchedFirst;
-	private Integer pitchedSecond;
-	private Integer pitchedThird;
+	private Integer[] pitchBalls = new Integer[3];
 
 	private static final Pattern pitchPattern = Pattern.compile("^[1-9]{3}$");
 
@@ -24,9 +22,9 @@ public class PitchBalls {
 			throw new PitchException(PITCH_INPUT_FORMAT_ERROR_MESSAGE);
 		}
 
-		this.pitchedFirst = Character.getNumericValue(pitching.charAt(0));
-		this.pitchedSecond = Character.getNumericValue(pitching.charAt(1));
-		this.pitchedThird = Character.getNumericValue(pitching.charAt(2));
+		this.pitchBalls[0] = Character.getNumericValue(pitching.charAt(0));
+		this.pitchBalls[1] = Character.getNumericValue(pitching.charAt(1));
+		this.pitchBalls[2] = Character.getNumericValue(pitching.charAt(2));
 
 		if (!isEachUnique()) {
 			throw new PitchException(PITCH_INPUT_NOT_UNIQUE_EACH_ERROR_MESSAGE);
@@ -39,8 +37,8 @@ public class PitchBalls {
 	}
 
 	private boolean isEachUnique() {
-		return !(this.pitchedFirst.equals(this.pitchedSecond)
-			|| this.pitchedFirst.equals(this.pitchedThird)
-			|| this.pitchedSecond.equals(this.pitchedThird));
+		return !(this.pitchBalls[0].equals(this.pitchBalls[1])
+			|| this.pitchBalls[0].equals(this.pitchBalls[2])
+			|| this.pitchBalls[1].equals(this.pitchBalls[2]));
 	}
 }

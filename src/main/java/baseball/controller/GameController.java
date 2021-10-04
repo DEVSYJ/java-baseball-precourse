@@ -7,8 +7,8 @@ import static nextstep.utils.Console.*;
 
 import baseball.constant.GameState;
 import baseball.exception.PitchException;
+import baseball.model.BallZone;
 import baseball.model.PitchBalls;
-import baseball.model.StrikeZone;
 import baseball.model.Umpire;
 
 public class GameController {
@@ -23,11 +23,11 @@ public class GameController {
 	}
 
 	private static void playBall() {
-		StrikeZone strikeZone = new StrikeZone();
+		BallZone ballZone = new BallZone();
 		PitchBalls pitchBalls = setPitchBalls();
 
-		Umpire.UmpireResult umpireResult = umpire(pitchBalls, strikeZone);
-		while (!checkContinuePitch(umpireResult)) {
+		Umpire umpireResults = new Umpire(pitchBalls, ballZone);
+		while (!checkContinuePitch(umpireResults.getUmpireResults())) {
 			playBall();
 		}
 	}

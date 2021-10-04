@@ -45,11 +45,11 @@ class PitchBallsTest {
 		for (String pitchSuccess : pitchSuccessList) {
 			PitchBalls pitchBalls = new PitchBalls(pitchSuccess);
 
-			assertThat(pitchBalls.getPitchedFirst())
+			assertThat(pitchBalls.getPitchBalls()[0])
 				.isEqualTo(Character.getNumericValue(pitchSuccess.charAt(0)));
-			assertThat(pitchBalls.getPitchedSecond())
+			assertThat(pitchBalls.getPitchBalls()[1])
 				.isEqualTo(Character.getNumericValue(pitchSuccess.charAt(1)));
-			assertThat(pitchBalls.getPitchedThird())
+			assertThat(pitchBalls.getPitchBalls()[2])
 				.isEqualTo(Character.getNumericValue(pitchSuccess.charAt(2)));
 		}
 	}
