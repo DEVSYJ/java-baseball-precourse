@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
-import baseball.exception.PitchException;
+import baseball.exception.InputException;
 
 class PitchBallsTest {
 
@@ -57,7 +57,7 @@ class PitchBallsTest {
 	@Test
 	void pitchFailTest() {
 		for (String pitchFail : pitchFailList) {
-			assertThrows(PitchException.class, () -> {
+			assertThrows(InputException.class, () -> {
 				new PitchBalls(pitchFail);
 			});
 		}
